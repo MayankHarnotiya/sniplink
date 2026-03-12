@@ -13,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UrlShortenerController {
     private final UrlShortenerService service;
-    private static final String BASE_URL = "http://localhost:7075/";
+    private static final String BASE_URL = "https://sniplink-production-0a0c.up.railway.app/";
 
     // POST /shorten  →  creates a short URL
     @PostMapping("/shorten")

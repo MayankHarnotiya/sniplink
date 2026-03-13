@@ -16,7 +16,7 @@ public class UrlShortenerController {
 
     private final UrlShortenerService service;
 
-    @Value("${APP_BASE_URL:http://localhost:7075/}")
+    @Value("${APP_BASE_URL:http://localhost:8080/}")
     private String baseUrl;
 
     // POST /shorten  →  creates a short URL

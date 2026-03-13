@@ -2,6 +2,7 @@ package com.snip.link.controller;
 
 import com.snip.link.service.UrlShortenerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +13,12 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class UrlShortenerController {
+
     private final UrlShortenerService service;
-    private static final String BASE_URL = "https://sniplink-production-27a8.up.railway.app/";
+
+    @Value("${APP_BASE_URL:http://localhost:7075/}")
+    private String baseUrl;
+
     // POST /shorten  →  creates a short URL
     @PostMapping("/shorten")
     public ResponseEntity<Map<String, String>> shorten(@RequestBody Map<String, String> body) {
@@ -21,7 +26,7 @@ public class UrlShortenerController {
         String shortCode = service.shortenUrl(originalUrl);
 
         return ResponseEntity.ok(Map.of(
-                "shortUrl", BASE_URL + shortCode,
+                "shortUrl", baseUrl + shortCode,
                 "shortCode", shortCode
         ));
     }
@@ -31,7 +36,6 @@ public class UrlShortenerController {
     public ResponseEntity<Void> redirect(@PathVariable String shortCode) {
         String originalUrl = service.resolveUrl(shortCode);
 
-        // 302 = temporary redirect (browser won't cache it permanently)
         return ResponseEntity.status(HttpStatus.FOUND)
                 .location(URI.create(originalUrl))
                 .build();

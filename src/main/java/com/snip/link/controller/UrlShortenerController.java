@@ -13,8 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UrlShortenerController {
     private final UrlShortenerService service;
-    private static final String BASE_URL = "https://sniplink-production-0a0c.up.railway.app/";
-
+    private static final String BASE_URL = "https://sniplink-production-27a8.up.railway.app/";
     // POST /shorten  →  creates a short URL
     @PostMapping("/shorten")
     public ResponseEntity<Map<String, String>> shorten(@RequestBody Map<String, String> body) {
